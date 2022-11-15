@@ -1,0 +1,30 @@
+export const address = {
+    dex:{
+        uniswap:{
+            v2:{
+                factory:'0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f',
+                router:'0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D',
+            },
+            v3:{
+                factory:'0x1F98431c8aD98523631AE4a59f267346ea31F984',
+                router:'0xE592427A0AEce92De3Edee1F18E0157C05861564',
+                quoter:'0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6',
+                ticklens:'0xbfd8137f7d1516D3ea5cA83523914859ec47F573',
+                multicall2:'0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696',
+            }
+        },
+        sushiswap:{
+            factory:'0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac',
+            router:'0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F',
+        }
+    },
+    token:{
+        weth:'0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+        usdc:'0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+        dai:'0x6B175474E89094C44Da98b954EedeAC495271d0F',
+        usdt:'0xdAC17F958D2ee523a2206206994597C13D831ec7',
+    },
+    bot:{
+        v1:'0x25704B20A97c3A1730aE6f2332900F057Ef21f6C'
+    }
+}
