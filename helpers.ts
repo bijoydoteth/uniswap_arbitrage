@@ -22,7 +22,6 @@ import {
   v2_pool_abi,
   v3_pool_abi
 } from "./arbitrageobject/lpPool";
-import graphData from "./graphdata.json";
 
 const provider = getProvider("node", "rpc");
 const pythonRouterPath = "../py_calculations/router.py"
