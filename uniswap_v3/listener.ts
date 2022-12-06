@@ -84,7 +84,7 @@ async function uniV3Events() {
           );
         console.log(`Pool1: ${bestProfit.contract_input.pool1} | Pool2: ${bestProfit.contract_input.pool2}`)
         console.log(`Best Profit: ${profit} | Borrow: ${borrow} | swapout: ${swapOutAmount} | repay: ${flashrepayAmount} | Pool1Type: ${bestProfit.contract_input.pool1Type} | Pool1Type: ${bestProfit.contract_input.pool2Type}`)
-        console.log(`Calling flashswap`)
+        // console.log(`Calling flashswap`)
         await callFlashswap(bestProfit)
       }    
     }

@@ -123,7 +123,7 @@ export async function callFlashswap(profit: any) {
         gas = ethers.utils.formatEther(gasPrice.mul(gaslimit));
 
         if (estimateProfit > Number(gas) + profit_threshold && Number(gas) < 0.01) {
-
+          // if (estimateProfit > profit_threshold && Number(gas) < 0.01) {
             tx_settings = {
                 nonce: await signer.getTransactionCount(),
                 gasPrice: gasPrice.add(gas_price_buffer).add(prio_gas),
@@ -132,14 +132,16 @@ export async function callFlashswap(profit: any) {
                 ),
                 from:wallet.address
             };
+            
             // EIP 1559 tx setting
             // tx_settings = {
-            //     nonce: await signer.getTransactionCount(),
-            //     maxPriorityFeePerGas: prio_gas,
+            //     type:2,
             //     maxFeePerGas: gasPrice.add(gas_price_buffer).add(prio_gas),
+            //     maxPriorityFeePerGas: prio_gas,
             //     gasLimit: ethers.BigNumber.from(
-            //     Math.round(gaslimit.toNumber() * 1.1).toString()
-            //     ),
+            //       Math.round(gaslimit.toNumber() * 1.1).toString()
+            //       ),
+            //     nonce: await signer.getTransactionCount(),
             // };
 
             let contract_WETH_balance = await weth_contract.balanceOf(
@@ -163,21 +165,37 @@ export async function callFlashswap(profit: any) {
                 encodedataV3,
                 tx_settings
             );
+            
+            const CurrentBlockNumber = (await provider.getBlockNumber())
+            const maxBlockNumber = CurrentBlockNumber + 3
+            // const targetBlockNumber = CurrentBlockNumber + 1
 
-            const maxBlockNumber = (await provider.getBlockNumber()) + 3
             const flashbotsProvider = await FlashbotsBundleProvider.create(
                 provider, // a normal ethers.js provider, to perform gas estimiations and nonce lookups
                 authSigner // ethers.js signer wallet, only for signing request payloads, not transactions
                 )
+
+            // const transactionBundle = [
+            //   {
+            //     signer: wallet, // ethers signer
+            //     transaction: rawtx // ethers populated transaction object
+            //   }
+            // ]
+            
+            // const flashbotsTransactionResponse = await flashbotsProvider.sendBundle(
+            //   transactionBundle,
+            //   targetBlockNumber,
+            //   )
+
             const privateTx = {
-                transaction: rawtx,
-                signer: wallet,
+              transaction: rawtx,
+              signer: wallet,
             }
 
             const res = await flashbotsProvider.sendPrivateTransaction(privateTx,{maxBlockNumber})         
             console.log(`Tx Pending`)
             console.log(res)
-
+            
             console.log(
                 `Contract WETH Balance After: ${ethers.utils.formatEther(
                 contract_WETH_balance
